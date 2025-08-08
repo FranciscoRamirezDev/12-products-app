@@ -1,3 +1,4 @@
+import { authCheckStatus, authLogin } from "@/core/auth/actions/auth-actions";
 import { User } from "@/core/auth/interface/user";
 import { create } from 'zustand';
 
@@ -22,13 +23,42 @@ export const useAuthStore = create<AuthState>()((set,get)=>({
 
     //methods or actions
     login: async (email:string,password:string)=>{
+        const response = await authLogin(email, password);
+        if (!response) {
+            set({status: 'unauthenticated', token: undefined, user: undefined});
+            return false;
+        }
+        set({
+            status: 'authenticated',
+            token: response.token,
+            user: response.user
+        })
+
+        // save token local storage
+
         return true;
     },
+
     checkStatus: async () => {
-        
+
+        const response = await authCheckStatus();
+
+        if (!response) {
+            set({ status: 'unauthenticated', token: undefined, user: undefined });
+            return;
+        }
+        set({
+            status: 'authenticated',
+            token: response.token,
+            user: response.user
+        })
+
+        return ;
+
     },
     logout: async () => {
-        
+        //clear token local storage
+        set({status: 'unauthenticated', token: undefined, user: undefined})
     },
 
 }))
