@@ -13,6 +13,8 @@ export interface AuthState {
     login: (email: string, password: string) => Promise<boolean>;
     checkStatus: () => Promise<void>;
     logout: () => Promise<void>;
+
+    changeStatus: (token?: string, user?: User) => boolean;
 }
 
 export const useAuthStore = create<AuthState>()((set,get)=>({
@@ -22,9 +24,26 @@ export const useAuthStore = create<AuthState>()((set,get)=>({
     user: undefined,
 
     //methods or actions
+
+    changeStatus: (token?: string, user?: User) => {
+
+        if (!token || !user) {
+            set({ status: 'unauthenticated', token: undefined, user: undefined });
+            //llamar logout
+            return false;
+        }
+        set({
+            status: 'authenticated',
+            token: token,
+            user: user
+        })
+
+        return true;
+    },
+
     login: async (email:string,password:string)=>{
         const response = await authLogin(email, password);
-        if (!response) {
+        /* if (!response) {
             set({status: 'unauthenticated', token: undefined, user: undefined});
             return false;
         }
@@ -34,16 +53,16 @@ export const useAuthStore = create<AuthState>()((set,get)=>({
             user: response.user
         })
 
-        // save token local storage
+        return true; */
+        return get().changeStatus(response?.token, response?.user)
 
-        return true;
     },
 
     checkStatus: async () => {
 
         const response = await authCheckStatus();
 
-        if (!response) {
+        /* if (!response) {
             set({ status: 'unauthenticated', token: undefined, user: undefined });
             return;
         }
@@ -53,7 +72,8 @@ export const useAuthStore = create<AuthState>()((set,get)=>({
             user: response.user
         })
 
-        return ;
+        return ; */
+        get().changeStatus(response?.token, response?.user);
 
     },
     logout: async () => {
