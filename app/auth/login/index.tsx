@@ -6,7 +6,7 @@ import ThemeTextInput from "@/presentation/theme/components/ThemeTextInput";
 import { useThemeColor } from "@/presentation/theme/hooks/useThemeColor";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Alert, KeyboardAvoidingView, Platform, ScrollView, ToastAndroid, useWindowDimensions, View } from "react-native";
+import { Alert, KeyboardAvoidingView, ScrollView, useWindowDimensions, View } from "react-native";
 const LoginScreen = () => {
 
   const { login } = useAuthStore();
@@ -24,9 +24,10 @@ const LoginScreen = () => {
     const { email, password } = form;
     
     if (email.length===0||password.length===0) {
-      return Platform.OS==='ios'?
+      /* return Platform.OS==='ios'?
         Alert.alert('Aviso','Ingresa algún valor')
-      : ToastAndroid.show('Ingresa algún valor',1000)
+      : ToastAndroid.show('Ingresa algún valor',1000) */
+      return;
     }
     setIsPosting(true);
 
@@ -35,8 +36,7 @@ const LoginScreen = () => {
     setIsPosting(false);
 
     if (wasSucessful===true) {
-      console.log('login sucessful');
-      router.push('/')
+      router.replace('/(products-app)/(home)')
       return;
     }
 

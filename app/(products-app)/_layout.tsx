@@ -11,6 +11,7 @@ const CheckAuthenticationAppLayout = () => {
 
     useEffect(() => {
      checkStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
 if (status==='checking') {

@@ -6,6 +6,8 @@ export class SecureStorageAdapter{
     static async setItem(key:string, value: string){
         try {
             await SecureStore.setItemAsync(key,value);
+            console.log('token almacenado');
+            
         } catch (error) {
             console.log(error);
             Alert.alert('Error','Failed to save data local storage')

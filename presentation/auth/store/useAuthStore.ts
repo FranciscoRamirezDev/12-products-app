@@ -39,7 +39,6 @@ export const useAuthStore = create<AuthState>()((set,get)=>({
             token: token,
             user: user
         })
-       console.log('TOKEN',token);
        
         await SecureStorageAdapter.setItem(token,'token');
         return true;
@@ -52,7 +51,10 @@ export const useAuthStore = create<AuthState>()((set,get)=>({
     },
 
     checkStatus: async () => {
-        
+        if (get().user) {
+            return;
+        }
+
         const response = await authCheckStatus();
 
         get().changeStatus(response?.token, response?.user);
