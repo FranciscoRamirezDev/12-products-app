@@ -45,6 +45,8 @@ export const authLogin = async (email: string, password: string) => {
 }
 
 export const authCheckStatus = async () => {
+    console.log('este es el que retorna el 401');
+    
     try {
         const { data } = await productsApi.get<AuthResponse>('/auth/check-status');
         return returnUserToken(data)

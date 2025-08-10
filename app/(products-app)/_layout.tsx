@@ -10,7 +10,7 @@ const CheckAuthenticationAppLayout = () => {
 
 
     useEffect(() => {
-     checkStatus()
+     checkStatus();
     }, [])
     
 if (status==='checking') {
@@ -44,7 +44,7 @@ if (status==='unauthenticated') {
       }}
     >
       <Stack.Screen
-        name="/(home)/index"
+        name="(home)/index"
         options={{
           title: "Productos",
         }}

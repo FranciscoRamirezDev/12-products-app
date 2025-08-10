@@ -22,7 +22,6 @@ const LoginScreen = () => {
 
   const onLogin = async () =>{
     const { email, password } = form;
-    console.log(email, password);
     
     if (email.length===0||password.length===0) {
       return Platform.OS==='ios'?
@@ -35,9 +34,9 @@ const LoginScreen = () => {
 
     setIsPosting(false);
 
-    if (wasSucessful) {
+    if (wasSucessful===true) {
       console.log('login sucessful');
-      router.replace('/')
+      router.push('/')
       return;
     }
 

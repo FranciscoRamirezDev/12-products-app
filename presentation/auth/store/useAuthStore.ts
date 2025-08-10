@@ -1,5 +1,6 @@
 import { authCheckStatus, authLogin } from "@/core/auth/actions/auth-actions";
 import { User } from "@/core/auth/interface/user";
+import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter";
 import { create } from 'zustand';
 
 export type AuthStatus = 'authenticated' | 'unauthenticated' | 'checking'
@@ -14,7 +15,7 @@ export interface AuthState {
     checkStatus: () => Promise<void>;
     logout: () => Promise<void>;
 
-    changeStatus: (token?: string, user?: User) => boolean;
+    changeStatus: (token?: string, user?: User) => Promise<boolean>;
 }
 
 export const useAuthStore = create<AuthState>()((set,get)=>({
@@ -25,11 +26,12 @@ export const useAuthStore = create<AuthState>()((set,get)=>({
 
     //methods or actions
 
-    changeStatus: (token?: string, user?: User) => {
+    changeStatus: async (token?: string, user?: User) => {
 
         if (!token || !user) {
             set({ status: 'unauthenticated', token: undefined, user: undefined });
             //llamar logout
+            await SecureStorageAdapter.deleteItem('token')
             return false;
         }
         set({
@@ -37,23 +39,14 @@ export const useAuthStore = create<AuthState>()((set,get)=>({
             token: token,
             user: user
         })
-
+       console.log('TOKEN',token);
+       
+        await SecureStorageAdapter.setItem(token,'token');
         return true;
     },
 
     login: async (email:string,password:string)=>{
         const response = await authLogin(email, password);
-        /* if (!response) {
-            set({status: 'unauthenticated', token: undefined, user: undefined});
-            return false;
-        }
-        set({
-            status: 'authenticated',
-            token: response.token,
-            user: response.user
-        })
-
-        return true; */
         return get().changeStatus(response?.token, response?.user)
 
     },
@@ -62,22 +55,12 @@ export const useAuthStore = create<AuthState>()((set,get)=>({
         
         const response = await authCheckStatus();
 
-        /* if (!response) {
-            set({ status: 'unauthenticated', token: undefined, user: undefined });
-            return;
-        }
-        set({
-            status: 'authenticated',
-            token: response.token,
-            user: response.user
-        })
-
-        return ; */
         get().changeStatus(response?.token, response?.user);
 
     },
     logout: async () => {
         //clear token local storage
+        await SecureStorageAdapter.deleteItem('token');
         set({status: 'unauthenticated', token: undefined, user: undefined})
     },
 
