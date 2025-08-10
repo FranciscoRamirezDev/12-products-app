@@ -12,14 +12,26 @@ const ThemeButton = ({ children, icon, ...rest }: Props) => {
   const colorPrimary = useThemeColor({}, "primary");
 
   return (
-    <Pressable {...rest} style={({pressed})=>[
+    <Pressable
+      {...rest}
+      style={({ pressed }) => [
         {
-            backgroundColor: pressed?colorPrimary+'90':colorPrimary
+          backgroundColor: pressed ? colorPrimary + "90" : colorPrimary,
         },
-        styles.button
-    ]}>
-      <Text style={{color:'white'}}>{children}</Text>
-      {icon && <Ionicons name={icon} size={24} color='white' style={{marginHorizontal: 5}} />}
+        styles.button,
+      ]}
+    >
+      <Text style={{ color: "white", fontFamily: "kanitBold" }}>
+        {children}
+      </Text>
+      {icon && (
+        <Ionicons
+          name={icon}
+          size={24}
+          color="white"
+          style={{ marginHorizontal: 5 }}
+        />
+      )}
     </Pressable>
   );
 };
