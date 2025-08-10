@@ -6,8 +6,6 @@ export class SecureStorageAdapter{
     static async setItem(key:string, value: string){
         try {
             await SecureStore.setItemAsync(key,value);
-            console.log('token almacenado');
-            
         } catch (error) {
             console.log(error);
             Alert.alert('Error','Failed to save data local storage')
@@ -26,7 +24,7 @@ export class SecureStorageAdapter{
 
     static async deleteItem(key: string) {
         try {
-            return await SecureStore.deleteItemAsync(key);
+             await SecureStore.deleteItemAsync(key);
         } catch (error) {
             console.log(error);
             Alert.alert('Error', 'Failed to delete data local storage');

@@ -40,7 +40,7 @@ export const useAuthStore = create<AuthState>()((set,get)=>({
             user: user
         })
        
-        await SecureStorageAdapter.setItem(token,'token');
+        await SecureStorageAdapter.setItem('token', token);
         return true;
     },
 
@@ -51,18 +51,13 @@ export const useAuthStore = create<AuthState>()((set,get)=>({
     },
 
     checkStatus: async () => {
-        if (get().user) {
-            return;
-        }
-
+   
         const response = await authCheckStatus();
-
-        get().changeStatus(response?.token, response?.user);
-
+        get().changeStatus(response?.token,response?.user);
     },
     logout: async () => {
         //clear token local storage
-        await SecureStorageAdapter.deleteItem('token');
+         SecureStorageAdapter.deleteItem('token');
         set({status: 'unauthenticated', token: undefined, user: undefined})
     },
 
