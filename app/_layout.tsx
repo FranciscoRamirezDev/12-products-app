@@ -12,6 +12,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/presentation/theme/hooks/useColorScheme';
+import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
 
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -19,6 +20,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const colorBackground = useThemeColor({}, "background");
+
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     kanitRegular: require("@/assets/fonts/Kanit-Regular.ttf"),
@@ -37,18 +40,24 @@ export default function RootLayout() {
   }
 
   return (
-    <GestureHandlerRootView >
-
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Stack
-            screenOptions={{
-              headerShown:false
-            }}
-          >
-            {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+    <GestureHandlerRootView style={{flex: 1, backgroundColor:colorBackground}}>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            headerShadowVisible: false,
+            headerStyle: {
+              backgroundColor: colorBackground,
+            },
+            contentStyle: {
+              backgroundColor: colorBackground,
+            },
+          }}
+        >
+          {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" /> */}
-          </Stack>
-        </ThemeProvider>
+        </Stack>
+      </ThemeProvider>
     </GestureHandlerRootView>
   );
 }
