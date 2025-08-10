@@ -20,14 +20,15 @@ const ThemeTextInput = ({ icon, ...rest }: Props) => {
         ...styles.border,
         //cambiar si tiene el foco
         borderColor: isActive ? colorPrimary : "#ccc",
+        backgroundColor: isActive ? "white" : undefined,
       }}
-      onTouchStart={()=>inputRef.current?.focus}
+      onTouchStart={() => inputRef.current?.focus}
     >
       {icon && (
         <Ionicons
           name={icon}
           size={24}
-          color={colorText}
+          color={isActive ? colorPrimary : "#ccc"}
           style={{ marginRight: 10 }}
         />
       )}
@@ -37,10 +38,10 @@ const ThemeTextInput = ({ icon, ...rest }: Props) => {
         onFocus={() => setIsActive(true)}
         onBlur={() => setIsActive(false)}
         style={{
-            color: colorText,
-            marginRight: 10,
-            paddingVertical:10,
-            flex: 1
+          color: colorText,
+          marginRight: 10,
+          paddingVertical: 10,
+          flex: 1,
         }}
         {...rest}
       />
