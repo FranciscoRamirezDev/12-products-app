@@ -59,7 +59,7 @@ export const useAuthStore = create<AuthState>()((set,get)=>({
     },
 
     checkStatus: async () => {
-
+        
         const response = await authCheckStatus();
 
         /* if (!response) {

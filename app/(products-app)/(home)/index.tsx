@@ -6,10 +6,26 @@ import { View } from "react-native";
 const HomeScreen = () => {
   const colorPrimary = useThemeColor({},'primary')
   return (
-    <View style={{ paddingTop:100,paddingHorizontal:20 }}>
+    <View style={{ paddingTop: 100, paddingHorizontal: 20 }}>
       <ThemedText
         style={{
-          color:colorPrimary,
+          color: colorPrimary,
+          fontFamily: "kanitThin",
+        }}
+      >
+        HomeScreen
+      </ThemedText>
+      <ThemedText
+        style={{
+          color: colorPrimary,
+          fontFamily: "kanitRegular",
+        }}
+      >
+        HomeScreen
+      </ThemedText>
+      <ThemedText
+        style={{
+          color: colorPrimary,
           fontFamily: "kanitBold",
         }}
       >
