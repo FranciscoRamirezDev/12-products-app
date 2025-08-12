@@ -14,9 +14,20 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/presentation/theme/hooks/useColorScheme';
 import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+// Create a client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false
+    }
+  }
+})
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -41,23 +52,23 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{flex: 1, backgroundColor:colorBackground}}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            headerShadowVisible: false,
-            headerStyle: {
-              backgroundColor: colorBackground,
-            },
-            contentStyle: {
-              backgroundColor: colorBackground,
-            },
-          }}
-        >
-          {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" /> */}
-        </Stack>
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              headerShadowVisible: false,
+              headerStyle: {
+                backgroundColor: colorBackground,
+              },
+              contentStyle: {
+                backgroundColor: colorBackground,
+              },
+            }}
+          >
+          </Stack>
+        </ThemeProvider>
+      </QueryClientProvider>
     </GestureHandlerRootView>
   );
 }
