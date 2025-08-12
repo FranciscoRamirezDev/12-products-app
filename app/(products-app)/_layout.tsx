@@ -49,7 +49,13 @@ if (status==='unauthenticated') {
         name="(home)/index"
         options={{
           title: "Productos",
-          headerLeft: () => <LogoutIconButton/>,
+          headerLeft: () => <LogoutIconButton />,
+        }}
+      />
+      <Stack.Screen
+        name="product/[id]"
+        options={{
+          title: "Producto",
         }}
       />
     </Stack>

@@ -1,8 +1,8 @@
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
-import ThemeButton from "@/presentation/theme/components/ThemeButton";
+import ThemedButton from "@/presentation/theme/components/ThemedButton";
+import ThemeLink from "@/presentation/theme/components/ThemedLink";
 import { ThemedText } from "@/presentation/theme/components/ThemedText";
-import ThemeLink from "@/presentation/theme/components/ThemeLink";
-import ThemeTextInput from "@/presentation/theme/components/ThemeTextInput";
+import ThemeTextInput from "@/presentation/theme/components/ThemedTextInput";
 import { useThemeColor } from "@/presentation/theme/hooks/useThemeColor";
 import { router } from "expo-router";
 import { useState } from "react";
@@ -84,7 +84,7 @@ const LoginScreen = () => {
         {/* spacer */}
         <View style={{ margin: 10 }} />
         {/* buttons */}
-        <ThemeButton icon="arrow-forward-outline" onPress={onLogin} disabled={isPosting}>Ingresar</ThemeButton>
+        <ThemedButton icon="arrow-forward-outline" onPress={onLogin} disabled={isPosting}>Ingresar</ThemedButton>
         {/* spacer */}
         <View
           style={{ marginTop: 20, borderWidth: 0.3, borderColor: "#ccc" }}

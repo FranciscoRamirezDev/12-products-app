@@ -6,7 +6,7 @@ interface Props extends LinkProps {
     
 }
 
-const ThemeLink = ({style, ...rest}:Props) => {
+const ThemedLink = ({style, ...rest}:Props) => {
   const colorPrimary = useThemeColor({}, "primary");
 
   return (
@@ -22,4 +22,4 @@ const ThemeLink = ({style, ...rest}:Props) => {
   )
 }
 
-export default ThemeLink
+export default ThemedLink

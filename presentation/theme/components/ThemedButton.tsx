@@ -8,7 +8,7 @@ interface Props extends PressableProps {
   icon?: keyof typeof Ionicons.glyphMap;
 }
 
-const ThemeButton = ({ children, icon, ...rest }: Props) => {
+const ThemedButton = ({ children, icon, ...rest }: Props) => {
   const colorPrimary = useThemeColor({}, "primary");
 
   return (
@@ -36,7 +36,7 @@ const ThemeButton = ({ children, icon, ...rest }: Props) => {
   );
 };
 
-export default ThemeButton;
+export default ThemedButton;
 
 export const styles = StyleSheet.create({
     button:{
