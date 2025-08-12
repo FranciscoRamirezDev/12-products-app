@@ -1,7 +1,9 @@
 //import { updateCreateProduct } from "@/core/products/actions/create-update-product.action";
 import { getProductById } from "@/core/products/actions/get-product-by-id.action";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Product } from "@/core/products/interfaces/product.interface";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRef } from "react";
+import { Alert } from "react-native";
 
 export const useProduct = (productId: string) => {
   const queryClient = useQueryClient();
@@ -14,13 +16,15 @@ export const useProduct = (productId: string) => {
   });
 
   // Mutación
-  /* const productMutation = useMutation({
+  const productMutation = useMutation({
     mutationFn: async (data: Product) =>
-      updateCreateProduct({
+      /* updateCreateProduct({
         ...data,
         id: productIdRef.current,
-      }),
-
+      }), */
+      {return data}
+    ,
+    
     onSuccess(data: Product) {
       productIdRef.current = data.id;
 
@@ -33,12 +37,12 @@ export const useProduct = (productId: string) => {
 
       Alert.alert("Producto guardado", `${data.title} se guardo correctamente`);
     },
-  }); */
+  }); 
 
   // Mantener el ID del producto en caso de ser uno nuevo
 
   return {
     productQuery,
-    //productMutation,
+    productMutation,
   };
 };

@@ -21,7 +21,7 @@ const ProductScreen = () => {
   const { id } = useLocalSearchParams();
   const navigation = useNavigation();
 
-  const { productQuery } = useProduct(`${id}`);
+  const { productQuery, productMutation } = useProduct(`${id}`);
 
   useEffect(() => {
     navigation.setOptions({
@@ -52,7 +52,7 @@ const ProductScreen = () => {
   const product = productQuery.data!;
 
   return (
-    <Formik initialValues={product} onSubmit={()=>{}}>
+    <Formik initialValues={product} onSubmit={(productLike)=>productMutation.mutate(productLike)}>
       {({ values, handleSubmit, handleChange, setFieldValue }) => (
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : undefined}
