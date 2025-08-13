@@ -1,4 +1,5 @@
 //import { updateCreateProduct } from "@/core/products/actions/create-update-product.action";
+import { updateCreateProduct } from "@/core/products/actions/create-update-product.action";
 import { getProductById } from "@/core/products/actions/get-product-by-id.action";
 import { Product } from "@/core/products/interfaces/product.interface";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -18,13 +19,11 @@ export const useProduct = (productId: string) => {
   // Mutación
   const productMutation = useMutation({
     mutationFn: async (data: Product) =>
-      /* updateCreateProduct({
+      updateCreateProduct({
         ...data,
         id: productIdRef.current,
-      }), */
-      {return data}
-    ,
-    
+      }), 
+     
     onSuccess(data: Product) {
       productIdRef.current = data.id;
 
