@@ -28,6 +28,7 @@ const HomeScreen = () => {
       <FAB
         iconName="add-outline"
         onPress={() => router.push("/(products-app)/product/new")}
+        style={{backgroundColor:'black'}}
       />
     </View>
   );
