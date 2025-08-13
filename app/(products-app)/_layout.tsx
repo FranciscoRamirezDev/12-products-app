@@ -43,6 +43,9 @@ if (status==='unauthenticated') {
         contentStyle: {
           backgroundColor: colorBackground,
         },
+        headerTitleStyle: {
+          fontFamily: "Kanitregular",
+        },
       }}
     >
       <Stack.Screen

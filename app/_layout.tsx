@@ -64,6 +64,9 @@ export default function RootLayout() {
               contentStyle: {
                 backgroundColor: colorBackground,
               },
+              headerTitleStyle:{
+                fontFamily:'KanitRegular'
+              }
             }}
           >
           </Stack>

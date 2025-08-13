@@ -38,7 +38,8 @@ const ThemedTextInput = ({ icon, style, ...rest }: Props) => {
         onFocus={() => setIsActive(true)}
         onBlur={() => setIsActive(false)}
         style={{
-          color: colorText,
+          color: isActive?colorPrimary:colorText,
+          fontFamily:'kanitRegular',
           marginRight: 10,
           paddingVertical: 10,
           flex: 1,
