@@ -15,6 +15,7 @@ import { router } from "expo-router";
 import { ThemedText } from "@/presentation/theme/components/ThemedText";
 import { useThemeColor } from "@/presentation/theme/hooks/useThemeColor";
 
+import { useCameraStore } from "@/presentation/store/useCameraStore";
 import { CameraType, CameraView, useCameraPermissions } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
@@ -22,7 +23,7 @@ import * as MediaLibrary from "expo-media-library";
 //import { useCameraStore } from "@/presentation/store/useCameraStore";
 
 export default function CameraScreen() {
-  //const { addSelectedImage } = useCameraStore();
+  const { addSelectedImage } = useCameraStore();
 
   const [facing, setFacing] = useState<CameraType>("back");
   const [cameraPermission, requestCameraPermission] = useCameraPermissions();
@@ -112,8 +113,9 @@ export default function CameraScreen() {
     if (!selectedImage) return;
 
     await MediaLibrary.createAssetAsync(selectedImage);
-
-    //addSelectedImage(selectedImage);
+    console.log('foto almacenada en galeria local');
+    
+    addSelectedImage(selectedImage);
 
     router.dismiss();
   };
@@ -161,7 +163,7 @@ export default function CameraScreen() {
 
   return (
     <View style={styles.container}>
-      <CameraView ref={cameraRef} style={styles.camera} facing={facing}>
+      <CameraView ref={cameraRef} style={styles.camera} facing={facing}/>
         <ShutterButton onPress={onShutterButtonPress} />
 
         <FlipCameraButton onPress={toggleCameraFacing} />
@@ -171,10 +173,6 @@ export default function CameraScreen() {
 
         <ReturnCancelButton onPress={onReturnCancel} />
 
-        {/* <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity> */}
-      </CameraView>
     </View>
   );
 }
