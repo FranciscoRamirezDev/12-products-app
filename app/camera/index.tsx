@@ -137,7 +137,7 @@ export default function CameraScreen() {
     if (result.canceled) return;
 
     result.assets.forEach((asset) => {
-      //addSelectedImage(asset.uri);
+      addSelectedImage(asset.uri);
     });
 
     router.dismiss();
